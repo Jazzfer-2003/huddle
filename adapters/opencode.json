@@ -1,0 +1,15 @@
+{
+  "name": "opencode",
+  "command": "opencode",
+  "argsTemplate": ["run", "-m", "{model}"],
+  "promptVia": "arg",
+  "outputFormat": "text",
+  "models": [
+    { "id": "apinex/free/glm-5.3-flash", "label": "GLM 5.3 Flash via apinex (free)", "tier": "free" },
+    { "id": "z-ai/glm-5.3-free", "label": "GLM 5.3 Free via tokenrouter (free)", "tier": "free" },
+    { "id": "bedrock-mantle/deepseek.v3.2", "label": "DeepSeek V3.2 via bedrock-mantle (free)", "tier": "free" },
+    { "id": "bedrock-mantle/openai.gpt-oss-120b", "label": "GPT-OSS 120B via bedrock-mantle (free)", "tier": "free" },
+    { "id": "bedrock-mantle/google.gemma-3-27b-it", "label": "Gemma 3 27B via bedrock-mantle (free)", "tier": "free" }
+  ],
+  "defaultModel": "apinex/free/glm-5.3-flash"
+}

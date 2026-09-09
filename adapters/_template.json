@@ -1,0 +1,10 @@
+{
+  "name": "_template",
+  "command": "your-agent-cli",
+  "argsTemplate": ["--headless", "--model", "{model}"],
+  "promptVia": "stdin",
+  "outputFormat": "text",
+  "models": [{ "id": "default", "label": "Your Agent's Default Model", "tier": "free" }],
+  "defaultModel": "default",
+  "_comment": "Copy this file, rename it to <agent-name>.json, set `name` to the same, and edit the 4 fields: command, argsTemplate, promptVia, models. Delete this _comment. PR it in — adapters are 15 lines, that's the whole story."
+}

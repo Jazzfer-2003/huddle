@@ -1,0 +1,13 @@
+# runtime state (never commit transcripts)
+.roundtable/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# node
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db

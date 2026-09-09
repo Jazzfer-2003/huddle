@@ -1,0 +1,29 @@
+{
+  "name": "roundtable",
+  "version": "0.1.0",
+  "description": "One session. Many AI brains. @claude @codex @gemini @opencode answer inline in the agent session you're already in.",
+  "type": "module",
+  "bin": {
+    "roundtable": "./src/cli.ts"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "mcp",
+    "ai-agents",
+    "multi-agent",
+    "claude-code",
+    "opencode",
+    "codex",
+    "gemini",
+    "peer-review"
+  ],
+  "license": "MIT",
+  "files": [
+    "src",
+    "skills",
+    "docs",
+    "SECURITY.md"
+  ]
+}

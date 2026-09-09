@@ -1,0 +1,14 @@
+{
+  "name": "claude",
+  "command": "claude",
+  "argsTemplate": ["-p", "--output-format", "json", "--model", "{model}"],
+  "promptVia": "stdin",
+  "outputFormat": "json",
+  "models": [
+    { "id": "sonnet", "label": "Claude Sonnet (subscription)", "tier": "paid" },
+    { "id": "opus", "label": "Claude Opus (subscription)", "tier": "paid" },
+    { "id": "haiku", "label": "Claude Haiku (subscription)", "tier": "paid" }
+  ],
+  "defaultModel": "sonnet",
+  "adviseArgs": ["--disallowedTools", "Edit,Write,MultiEdit,NotebookEdit,Bash"]
+}

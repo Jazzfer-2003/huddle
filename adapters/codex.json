@@ -1,0 +1,15 @@
+{
+  "name": "codex",
+  "command": "codex",
+  "argsTemplate": ["exec", "--skip-git-repo-check", "-m", "{model}"],
+  "promptVia": "stdin",
+  "outputFormat": "text",
+  "models": [
+    { "id": "gpt-5.6-terra", "label": "GPT-5.6 Terra (subscription)", "tier": "paid" },
+    { "id": "gpt-5.1-codex", "label": "GPT-5.1 Codex (subscription)", "tier": "paid" },
+    { "id": "o4-mini", "label": "o4-mini (API)", "tier": "paid" }
+  ],
+  "defaultModel": "gpt-5.6-terra",
+  "adviseArgs": ["--sandbox", "read-only"],
+  "actArgs": ["--sandbox", "workspace-write"]
+}
