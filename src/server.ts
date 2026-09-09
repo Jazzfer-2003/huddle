@@ -234,6 +234,9 @@ function replyErr(id: any, message: string) {
 const KNOWN_VERSIONS = ["2024-11-05", "2025-03-26", "2025-06-18", "2025-11-25"];
 const rl = createInterface({ input: process.stdin });
 let pending = 0;
+// Serialize tool calls: guests share one bus and one working tree, so
+// concurrent runs would interleave transcripts and collide on files.
+let tail: Promise<void> = Promise.resolve();
 
 rl.on("line", async (line) => {
   const s = line.trim();
@@ -262,14 +265,13 @@ rl.on("line", async (line) => {
   }
   if (method === "tools/call") {
     pending++;
-    try {
-      const text = await callTool(params?.name, params?.arguments ?? {});
-      reply(id, { content: [{ type: "text", text }], isError: false });
-    } catch (err: any) {
-      reply(id, { content: [{ type: "text", text: `⟦huddle⟧ error: ${err.message}` }], isError: true });
-    } finally {
+    const job = tail.then(() => callTool(params?.name, params?.arguments ?? {})).then(
+      (text) => reply(id, { content: [{ type: "text", text }], isError: false }),
+      (err: any) => reply(id, { content: [{ type: "text", text: `⟦huddle⟧ error: ${err.message}` }], isError: true })
+    ).finally(() => {
       pending--;
-    }
+    });
+    tail = job.catch(() => {});
     return;
   }
   if (id !== undefined) replyErr(id, `method not found: ${method}`);
