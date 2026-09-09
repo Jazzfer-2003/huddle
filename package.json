@@ -1,10 +1,10 @@
 {
-  "name": "roundtable",
-  "version": "0.1.0",
+  "name": "huddle",
+  "version": "0.2.0",
   "description": "One session. Many AI brains. @claude @codex @gemini @opencode answer inline in the agent session you're already in.",
   "type": "module",
   "bin": {
-    "roundtable": "./src/cli.ts"
+    "huddle": "./src/cli.ts"
   },
   "engines": {
     "node": ">=22"

@@ -10,5 +10,6 @@
     { "id": "haiku", "label": "Claude Haiku (subscription)", "tier": "paid" }
   ],
   "defaultModel": "sonnet",
+  "note": "Requires an authenticated `claude login` on the machine — headless print mode cannot complete interactive OAuth and will hang without credentials.",
   "adviseArgs": ["--disallowedTools", "Edit,Write,MultiEdit,NotebookEdit,Bash"]
 }

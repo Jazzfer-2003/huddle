@@ -1,9 +1,9 @@
 # Add your agent in 15 lines
 
-Every guest in roundtable is a JSON manifest. To bring a new CLI agent to the table:
+Every guest in huddle is a JSON manifest. To bring a new CLI agent to the table:
 
 1. Copy `adapters/_template.json`
-2. Save it as `~/.roundtable/adapters/<name>.json` (or PR to `adapters/`)
+2. Save it as `~/.huddle/adapters/<name>.json` (or PR to `adapters/`)
 3. Edit the four fields:
 
 ```json
@@ -22,11 +22,11 @@ Every guest in roundtable is a JSON manifest. To bring a new CLI agent to the ta
 | `command` | The executable on PATH |
 | `argsTemplate` | CLI args; `{model}` is replaced by the chosen model id |
 | `promptVia` | `"stdin"` (we pipe the prompt) or `"arg"` (we append it as the last argument) |
-| `models` | What `rt.models` shows — id, label, tier (`free`/`paid`/`local`) |
+| `models` | What `models` shows — id, label, tier (`free`/`paid`/`local`) |
 
 Optional: `"adviseArgs"` (read-only flags your CLI supports, used in advise mode), `"outputFormat": "json"` (if your CLI can emit JSON for cleaner parsing).
 
-That's it — `rt.ask(agent="myagent", ...)` works immediately. PR it in with a one-line README addition and we'll merge fast.
+That's it — `ask(agent="myagent", ...)` works immediately. PR it in with a one-line README addition and we'll merge fast.
 
 ## Tips
 

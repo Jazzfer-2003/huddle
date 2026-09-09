@@ -10,7 +10,7 @@ export function resolveAdapter(adapters: Map<string, Adapter>, name: string): Ad
   const a = adapters.get(name);
   if (!a) {
     throw new Error(
-      `Unknown agent "${name}". Registered: ${[...adapters.keys()].join(", ")}. Add yours via ~/.roundtable/adapters/<name>.json`
+      `Unknown agent "${name}". Registered: ${[...adapters.keys()].join(", ")}. Add yours via ~/.huddle/adapters/<name>.json`
     );
   }
   return a;

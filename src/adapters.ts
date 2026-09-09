@@ -25,7 +25,7 @@ function builtinDir(): string {
 }
 
 function userAdapterDir(): string {
-  const dir = join(homedir(), ".roundtable", "adapters");
+  const dir = join(homedir(), ".huddle", "adapters");
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
   return dir;
 }

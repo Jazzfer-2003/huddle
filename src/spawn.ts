@@ -1,4 +1,4 @@
-// Guest spawner — the only place roundtable executes anything.
+// Guest spawner — the only place huddle executes anything.
 // Security layers 1, 2, 5 live here:
 //   1. execFile with args array — never shell, prompt via stdin
 //   2. only registered adapter commands can run (router enforces before this)

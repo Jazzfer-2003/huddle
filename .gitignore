@@ -1,5 +1,5 @@
 # runtime state (never commit transcripts)
-.roundtable/
+.huddle/
 *.db
 *.db-journal
 *.db-wal

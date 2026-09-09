@@ -27,7 +27,7 @@ PATCH (only if fixes are needed): unified diff`
     : "";
 
   return [
-    `You are joining a shared coding session as guest agent "${"guest"}" via roundtable.`,
+    `You are joining a shared coding session as guest agent "${"guest"}" via huddle.`,
     supervisorLine,
     modeLine,
     "",

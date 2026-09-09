@@ -1,0 +1,8 @@
+> build · free/glm-5.3-flash
+⚙ huddle_roster Unknown
+Γ£▒ Glob "**/calc.ts" 1 match
+⚙ huddle_ask {"agent":"codex","task":"What does the add function in calc.ts return for inputs 2 and 3? Just
+the value."}
+⚙ huddle_check {"supervisor":"gemini","worker":"codex"}
+**Codex's answer:** 5
+**Gemini's verdict:** ON-SPEC — Codex correctly determined that `add(2, 3)` returns 5, matching the requested format with no issues found.

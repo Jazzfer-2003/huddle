@@ -8,8 +8,8 @@ export interface Limits {
 }
 
 export const DEFAULT_LIMITS: Limits = {
-  timeoutMs: Number(process.env.ROUNDTABLE_TIMEOUT_MS ?? 120_000),
-  maxSpawnsPerSession: Number(process.env.ROUNDTABLE_MAX_SPAWNS ?? 25),
+  timeoutMs: Number(process.env.HUDDLE_TIMEOUT_MS ?? 120_000),
+  maxSpawnsPerSession: Number(process.env.HUDDLE_MAX_SPAWNS ?? 25),
 };
 
 export class LimitTracker {

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// roundtable CLI — init / history / undo / models / adapters / help
-// Usage: roundtable <command> [flags]
+// huddle CLI — init / history / undo / models / adapters / help
+// Usage: huddle <command> [flags]
 
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
@@ -11,7 +11,7 @@ import { DatabaseSync } from "node:sqlite";
 const RT_DIR = resolve(import.meta.dirname, "..");
 
 function help() {
-  console.log(`roundtable — one session, many AI brains
+  console.log(`huddle — one session, many AI brains
 
 commands:
   init --host <opencode|claude> --guests <a,b,c> [--yes]
@@ -49,7 +49,7 @@ function parseFlags(args: string[]): Record<string, string | boolean> {
 
 // ── init ─────────────────────────────────────────────────────
 function init(flags: Record<string, string | boolean>) {
-  console.log("roundtable init — set your table\n");
+  console.log("huddle init — set your table\n");
 
   const present = KNOWN_AGENTS.filter(which);
   console.log("Detected agents: " + (present.length ? present.join(", ") : "(none)") + "\n");
@@ -77,7 +77,7 @@ function init(flags: Record<string, string | boolean>) {
   }
   const unknown = guests.filter((g) => !KNOWN_AGENTS.includes(g));
   if (unknown.length) {
-    console.log(`unknown agents: ${unknown.join(", ")} — known: ${KNOWN_AGENTS.join(", ")} (custom adapters go in ~/.roundtable/adapters/)`);
+    console.log(`unknown agents: ${unknown.join(", ")} — known: ${KNOWN_AGENTS.join(", ")} (custom adapters go in ~/.huddle/adapters/)`);
     process.exit(1);
   }
 
@@ -120,11 +120,11 @@ function writeHostConfig(host: string, guests: string[]) {
       try { cfg = JSON.parse(readFileSync(cfgPath, "utf8")); } catch { cfg = {}; }
     }
     cfg.mcp = cfg.mcp ?? {};
-    cfg.mcp.roundtable = {
+    cfg.mcp.huddle = {
       type: "local",
       command: ["node", "--experimental-strip-types", serverPath],
       enabled: true,
-      environment: { ROUNDTABLE_GUESTS: guestsEnv, ROUNDTABLE_HOST: "opencode" },
+      environment: { HUDDLE_GUESTS: guestsEnv, HUDDLE_HOST: "opencode" },
       timeout: 300000,
     };
     mkdirSync(join(homedir(), ".config", "opencode"), { recursive: true });
@@ -137,10 +137,10 @@ function writeHostConfig(host: string, guests: string[]) {
       try { cfg = JSON.parse(readFileSync(cfgPath, "utf8")); } catch { cfg = {}; }
     }
     cfg.mcpServers = cfg.mcpServers ?? {};
-    cfg.mcpServers.roundtable = {
+    cfg.mcpServers.huddle = {
       command: "node",
       args: ["--experimental-strip-types", serverPath],
-      env: { ROUNDTABLE_GUESTS: guestsEnv, ROUNDTABLE_HOST: "claude" },
+      env: { HUDDLE_GUESTS: guestsEnv, HUDDLE_HOST: "claude" },
     };
     writeFileSync(cfgPath, JSON.stringify(cfg, null, 2));
     console.log(`✔ Wrote MCP config → ${cfgPath}`);
@@ -150,27 +150,27 @@ function writeHostConfig(host: string, guests: string[]) {
 }
 
 function writeSkill(host: string) {
-  const skillSrc = join(RT_DIR, "skills", "roundtable.md");
+  const skillSrc = join(RT_DIR, "skills", "huddle.md");
   if (!existsSync(skillSrc)) return;
   const skill = readFileSync(skillSrc, "utf8");
   if (host === "opencode") {
     const dir = join(process.cwd(), ".opencode", "skill");
     mkdirSync(dir, { recursive: true });
-    writeFileSync(join(dir, "roundtable.md"), skill);
-    console.log(`✔ Wrote host skill → ${join(".opencode", "skill", "roundtable.md")}`);
+    writeFileSync(join(dir, "huddle.md"), skill);
+    console.log(`✔ Wrote host skill → ${join(".opencode", "skill", "huddle.md")}`);
   } else if (host === "claude") {
     const dir = join(process.cwd(), ".claude", "skills");
     mkdirSync(dir, { recursive: true });
-    writeFileSync(join(dir, "roundtable.md"), skill);
-    console.log(`✔ Wrote host skill → ${join(".claude", "skills", "roundtable.md")}`);
+    writeFileSync(join(dir, "huddle.md"), skill);
+    console.log(`✔ Wrote host skill → ${join(".claude", "skills", "huddle.md")}`);
   }
 }
 
 // ── history ─────────────────────────────────────────────────
 function history(n: number) {
-  const dbPath = join(homedir(), ".roundtable", "bus.db");
+  const dbPath = join(homedir(), ".huddle", "bus.db");
   if (!existsSync(dbPath)) {
-    console.log("No roundtable sessions yet. Start one from your host agent.");
+    console.log("No huddle sessions yet. Start one from your host agent.");
     return;
   }
   const db = new DatabaseSync(dbPath);
@@ -200,7 +200,7 @@ function undo() {
 
 // ── models ─────────────────────────────────────────────────
 function models(agent?: string) {
-  const userDir = join(homedir(), ".roundtable", "adapters");
+  const userDir = join(homedir(), ".huddle", "adapters");
   const seen = new Map<string, any>();
   for (const dir of [join(RT_DIR, "adapters"), userDir]) {
     if (!existsSync(dir)) continue;
@@ -224,7 +224,7 @@ function models(agent?: string) {
 function adaptersInfo() {
   const builtinDir = join(RT_DIR, "adapters");
   console.log("Registered adapters:");
-  for (const dir of [builtinDir, join(homedir(), ".roundtable", "adapters")]) {
+  for (const dir of [builtinDir, join(homedir(), ".huddle", "adapters")]) {
     if (!existsSync(dir)) continue;
     for (const f of readdirSync(dir)) {
       if (!f.endsWith(".json") || f.startsWith("_")) continue;
@@ -234,7 +234,7 @@ function adaptersInfo() {
       } catch {}
     }
   }
-  console.log(`\nAdd your own agent: copy ${join(builtinDir, "_template.json")} → ~/.roundtable/adapters/<name>.json (4 fields), done.`);
+  console.log(`\nAdd your own agent: copy ${join(builtinDir, "_template.json")} → ~/.huddle/adapters/<name>.json (4 fields), done.`);
 }
 
 // ── main ────────────────────────────────────────────────────
