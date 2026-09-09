@@ -5,7 +5,7 @@
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync } from "node:fs";
-import { execSync, execFileSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { DatabaseSync } from "node:sqlite";
 
 const RT_DIR = resolve(import.meta.dirname, "..");
@@ -25,9 +25,10 @@ commands:
 }
 
 // ── detection ────────────────────────────────────────────────
+// No shell, cross-platform: probing `--version` doubles as an availability check.
 function which(cmd: string): boolean {
   try {
-    execSync(`where ${cmd}`, { stdio: "ignore", shell: true, timeout: 8000 });
+    execFileSync(cmd, ["--version"], { stdio: "ignore", shell: false, timeout: 8000 });
     return true;
   } catch {
     return false;
