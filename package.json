@@ -1,7 +1,7 @@
 {
   "name": "huddle",
   "version": "0.2.0",
-  "description": "One session. Many AI brains. @claude @codex @gemini @opencode answer inline in the agent session you're already in.",
+  "description": "One session. Many AI brains. @codex @gemini @opencode answer inline in the agent session you're already in.",
   "type": "module",
   "bin": {
     "huddle": "./src/cli.ts"
@@ -13,7 +13,6 @@
     "mcp",
     "ai-agents",
     "multi-agent",
-    "claude-code",
     "opencode",
     "codex",
     "gemini",

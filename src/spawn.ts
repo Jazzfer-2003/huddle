@@ -59,8 +59,8 @@ export interface SpawnResult {
 function extract(adapter: Adapter, raw: string): string {
   // JSON output formats
   const trimmed = raw.trim();
-  if (adapter.outputFormat === "json" || adapter.name === "claude" || adapter.name === "codex") {
-    // claude -p --output-format json → single JSON object with `result`
+  if (adapter.outputFormat === "json" || adapter.name === "codex") {
+    // JSON output: single object with `result`, or a JSONL event stream (codex exec --json)
     try {
       const parsed = JSON.parse(trimmed);
       if (typeof parsed?.result === "string") return parsed.result;

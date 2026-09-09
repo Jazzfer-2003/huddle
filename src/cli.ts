@@ -14,7 +14,7 @@ function help() {
   console.log(`huddle — one session, many AI brains
 
 commands:
-  init --host <opencode|claude> --guests <a,b,c> [--yes]
+  init --host <opencode> --guests <a,b,c> [--yes]
                       detect agents, pick your table, write MCP config
                       (without flags: interactive picker)
   history [n]         show the shared session transcript (default 20 turns)
@@ -35,8 +35,8 @@ function which(cmd: string): boolean {
   }
 }
 
-const KNOWN_AGENTS = ["claude", "codex", "opencode", "gemini"];
-const KNOWN_HOSTS = ["opencode", "claude"];
+const KNOWN_AGENTS = ["codex", "opencode", "gemini"];
+const KNOWN_HOSTS = ["opencode"];
 
 function parseFlags(args: string[]): Record<string, string | boolean> {
   const out: Record<string, string | boolean> = {};
@@ -131,20 +131,6 @@ function writeHostConfig(host: string, guests: string[]) {
     mkdirSync(join(homedir(), ".config", "opencode"), { recursive: true });
     writeFileSync(cfgPath, JSON.stringify(cfg, null, 2));
     console.log(`✔ Wrote MCP config → ${cfgPath}`);
-  } else if (host === "claude") {
-    const cfgPath = join(homedir(), ".claude.json");
-    let cfg: any = {};
-    if (existsSync(cfgPath)) {
-      try { cfg = JSON.parse(readFileSync(cfgPath, "utf8")); } catch { cfg = {}; }
-    }
-    cfg.mcpServers = cfg.mcpServers ?? {};
-    cfg.mcpServers.huddle = {
-      command: "node",
-      args: ["--experimental-strip-types", serverPath],
-      env: { HUDDLE_GUESTS: guestsEnv, HUDDLE_HOST: "claude" },
-    };
-    writeFileSync(cfgPath, JSON.stringify(cfg, null, 2));
-    console.log(`✔ Wrote MCP config → ${cfgPath}`);
   }
 
   console.log(`\nNext: start '${host}' in any project and type  @${guests[0]} <question>`);
@@ -159,11 +145,6 @@ function writeSkill(host: string) {
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, "huddle.md"), skill);
     console.log(`✔ Wrote host skill → ${join(".opencode", "skill", "huddle.md")}`);
-  } else if (host === "claude") {
-    const dir = join(process.cwd(), ".claude", "skills");
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(join(dir, "huddle.md"), skill);
-    console.log(`✔ Wrote host skill → ${join(".claude", "skills", "huddle.md")}`);
   }
 }
 

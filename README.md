@@ -1,9 +1,9 @@
 # huddle
 
 > **One session. Many AI brains. Supervised.**
-> `@claude`, `@codex`, `@gemini` — answer inline in the agent session you're already in. And when one of them works, another one checks the work.
+> `@codex`, `@gemini`, `@opencode` — answer inline in the agent session you're already in. And when one of them works, another one checks the work.
 
-You're in opencode (or Claude Code). You want a second brain on a diff, a second opinion on an architecture call, a worker to fix the file while a supervisor verifies it did what you asked. Today you switch terminals and copy-paste context. Huddle puts every agent at **one table**: you @mention, that agent answers in your conversation, every agent shares the same transcript — and any agent can audit any other's work.
+You're in opencode. You want a second brain on a diff, a second opinion on an architecture call, a worker to fix the file while a supervisor verifies it did what you asked. Today you switch terminals and copy-paste context. Huddle puts every agent at **one table**: you @mention, that agent answers in your conversation, every agent shares the same transcript — and any agent can audit any other's work.
 
 ![huddle demo](demo/demo.gif)
 
@@ -24,12 +24,12 @@ huddle init --host opencode --guests codex,gemini
 
 Detects your installed agents, writes the MCP config into your host, drops the routing skill into your project. Then just start your host and `@mention` a guest.
 
-**Requires:** Node ≥ 22 (native TypeScript + SQLite, **zero npm dependencies**) and one MCP-capable host (opencode, Claude Code). Guests just need their CLIs installed and logged in — huddle never touches your auth or billing.
+**Requires:** Node ≥ 22 (native TypeScript + SQLite, **zero npm dependencies**) and one MCP-capable host (opencode). Guests just need their CLIs installed and logged in — huddle never touches your auth or billing.
 
 ## Any agent. Any model. Your combo.
 
-- **Guests:** any agent with a terminal CLI — ships with claude, codex, gemini, opencode adapters; anything else is a 15-line JSON manifest ([docs/ADAPTER.md](docs/ADAPTER.md)). PR yours in.
-- **Models:** per-call override — `@claude[opus]`, `@gemini[gemini-3-flash]`. Free, paid, or local: it's your CLI, your keys, your choice. `models` lists every catalog with free/paid/local tiers.
+- **Guests:** any agent with a terminal CLI — ships with codex, gemini and opencode adapters; anything else is a 15-line JSON manifest ([docs/ADAPTER.md](docs/ADAPTER.md)). PR yours in.
+- **Models:** per-call override — `@codex[o4-mini]`, `@gemini[gemini-3-flash]`. Free, paid, or local: it's your CLI, your keys, your choice. `models` lists every catalog with free/paid/local tiers.
 - **Combos:** every user picks their own host + guests at init. No hardcoded pairs.
 
 ## The tools (MCP)
@@ -71,7 +71,7 @@ From `huddle history` — actual bus transcript, all free models:
 
 ## FAQ
 
-**Does huddle itself need an agent?** The host does (opencode / Claude Code — anything MCP-capable). Guests just need a CLI. A standalone `huddle chat` TUI (you as the host, zero agents required) is on the v1.5 roadmap.
+**Does huddle itself need an agent?** The host does (opencode — anything MCP-capable). Guests just need a CLI. A standalone `huddle chat` TUI (you as the host, zero agents required) is on the v1.5 roadmap.
 
 **Does it touch my API keys or billing?** Never. It invokes your installed CLIs; their own auth and models carry over.
 

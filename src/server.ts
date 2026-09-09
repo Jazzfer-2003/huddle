@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // huddle MCP server — the heart.
 // Zero-dependency: speaks MCP (JSON-RPC over stdio) natively via node:stdio.
-// Exposes the table to any MCP-capable host (opencode, Claude Code):
+// Exposes the table to any MCP-capable host (opencode):
 //   ask    — hand a task to a guest agent, answer returns inline
 //   review — guest critiques another agent's last answer
 //   check  — supervisor: audit a worker vs its task (AI-watches-AI)
@@ -30,7 +30,7 @@ const limits = new LimitTracker(DEFAULT_LIMITS);
 
 const SESSION_ID = process.env.HUDDLE_SESSION ?? "default";
 const CWD = process.env.HUDDLE_CWD ?? process.cwd();
-const GUESTS = (process.env.HUDDLE_GUESTS ?? "claude,codex,gemini,opencode")
+const GUESTS = (process.env.HUDDLE_GUESTS ?? "codex,gemini,opencode")
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);
@@ -111,7 +111,7 @@ function tools() {
     {
       name: "ask",
       description:
-        "Hand a task to a guest agent at the table. Their answer returns here, inline. Use when the user @mentions an agent (e.g. '@claude review this'). mode 'act' (or user's '!' suffix like '@claude!') lets the guest edit files; default 'advise' is read-only analysis.",
+        "Hand a task to a guest agent at the table. Their answer returns here, inline. Use when the user @mentions an agent (e.g. '@codex review this'). mode 'act' (or user's '!' suffix like '@codex!') lets the guest edit files; default 'advise' is read-only analysis.",
       inputSchema: {
         type: "object",
         properties: {

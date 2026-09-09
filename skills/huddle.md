@@ -6,10 +6,10 @@ description: Multi-agent huddle — route @mentions to other AI agents via MCP t
 
 Other AI agents are at your table via the `huddle` MCP server. When the user @mentions an agent, route it with the MCP tools. Examples:
 
-- `@claude review this diff` → `ask(agent="claude", task="review the current diff...")`
+- `@codex review this diff` → `ask(agent="codex", task="review the current diff...")`
 - `@codex! fix the failing test` → `ask(agent="codex", task="...", mode="act")` (the `!` = guest may edit files)
 - `@gemini[gemini-3-flash] explain this architecture` → `ask(agent="gemini", task="...", model="gemini-3-flash")`
-- `@claude check what codex did` → `check(supervisor="claude", worker="codex")`
+- `@gemini check what codex did` → `check(supervisor="gemini", worker="codex")`
 
 Rules:
 
